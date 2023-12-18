@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    android:background="@color/material_dynamic_primary50"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="@string/time"
+        android:textColor="?attr/colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/textViewLevel"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="@string/level"
+        android:textColor="?attr/colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/textViewTemperature"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:hint="@string/temperature"
+        android:textColor="?attr/colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/textViewVoltage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:hint="@string/voltage"
+        android:textColor="?attr/colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/textViewPlugged"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:hint="@string/status"
+        android:textColor="?attr/colorOnPrimary" />
+</LinearLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="button_color">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:layout_margin">1dp</item>
+    </style>
+</resources>

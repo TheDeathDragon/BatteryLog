@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">Battery Log</string>
+    <string name="status">Status</string>
+    <string name="health">Health</string>
+    <string name="present">Present</string>
+    <string name="level">Level</string>
+    <string name="plugged">Plugged</string>
+    <string name="voltage">Voltage</string>
+    <string name="temperature">Temp</string>
+    <string name="notification_permission_denied">No permission to start service.</string>
+    <string name="notification_permission_granted">Permission granted, please start the service again.</string>
+    <string name="service_is_running">Battery Log Service is running</string>
+    <string name="stopBatteryLogService">Stop Battery Log Service</string>
+    <string name="startBatteryLogService">Start Battery Log Service</string>
+    <string name="BATTERY_STATUS_UNKNOWN">N/A</string>
+    <string name="BATTERY_STATUS_CHARGING">Charging</string>
+    <string name="BATTERY_STATUS_DISCHARGING">Discharging</string>
+    <string name="BATTERY_STATUS_NOT_CHARGING">Not Charging</string>
+    <string name="BATTERY_STATUS_FULL">Full</string>
+    <string name="BATTERY_HEALTH_UNKNOWN">N/A</string>
+    <string name="BATTERY_HEALTH_GOOD">Good</string>
+    <string name="BATTERY_HEALTH_OVERHEAT">Overheat</string>
+    <string name="BATTERY_HEALTH_DEAD">Dead</string>
+    <string name="BATTERY_HEALTH_OVER_VOLTAGE">OverVoltage</string>
+    <string name="BATTERY_HEALTH_UNSPECIFIED_FAILURE">Failure</string>
+    <string name="BATTERY_HEALTH_COLD">Cold</string>
+    <string name="BATTERY_PLUGGED_AC" translatable="false">Plug (AC)</string>
+    <string name="BATTERY_PLUGGED_USB" translatable="false">Plug (USB)</string>
+    <string name="BATTERY_PLUGGED_WIRELESS">Wireless</string>
+    <string name="BATTERY_HAVE_BATTERY">Have Battery</string>
+    <string name="NO_BATTERY">No battery</string>
+    <string name="BATTERY_PLUGGED_NONE" translatable="false">Unplugged</string>
+    <string name="main_menu_setting_item">Setting</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="is_boot_run">Start service on boot</string>
+    <string name="current">Charging current</string>
+    <string name="capacity">Battery capacity</string>
+    <string name="alert">Alert</string>
+    <string name="alert_massage">Are you sure to delete this data? Unable to restore after deletion!</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="alert_massage_all">Are you sure to delete all data? Unable to restore after deletion!</string>
+    <string name="log_list">History</string>
+    <string name="open_the_chart">Graph</string>
+    <string name="open_list">Sheet</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete All</string>
+    <string name="save_data_as">Save data as</string>
+    <string name="battery_full_mas">The battery is full, please remove the charger and start recording</string>
+    <string name="time">Time</string>
+    <string name="main_menu_about_item">About</string>
+    <string name="about_app">About APP</string>
+    <string name="about_app_info">BatteryLog is a software to record the battery voltage, current, temperature and other parameters, which can be used to test the charge discharge curve and temperature of the battery. The recorded data can be drawn as a graph or exported and saved in CSV format.</string>
+    <string name="about_license">License</string>
+    <string name="about_app_license">
+Copyright © 2023 RinShiro . All Rights Reserved.
+\n
+\nLicensed under the Apache License, Version 2.0 (the "License");
+\nyou may not use this file except in compliance with the License.
+\nYou may obtain a copy of the License at
+\n
+\n    http://www.apache.org/licenses/LICENSE-2.0
+\n
+\nUnless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+            \n
+        \nThis project refers to the following open source project code
+            \nMPAndroidChart
+        \n
+        \n    https://github.com/PhilJay/MPAndroidChart
+    </string>
+    <string name="background_run_permission_granted">Background running permission granted</string>
+    <string name="background_run_permission_not_granted">No Background running permission</string>
+
+</resources>

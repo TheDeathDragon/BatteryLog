@@ -1,0 +1,9 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:layout_width="match_parent"
+        android:defaultValue="false"
+        android:key="is_boot_run"
+        android:title="@string/is_boot_run" />
+
+</PreferenceScreen>
