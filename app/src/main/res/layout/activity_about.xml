@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/about_license"
+            android:text="@string/author"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -49,7 +49,26 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:autoLink="all"
-            android:text="@string/about_app_license" />
+            android:text="@string/author_info" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/open_source_license"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#808080" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:autoLink="all"
+            android:text="@string/open_source_license_info" />
+
 
 
     </LinearLayout>
