@@ -83,7 +83,7 @@ class LineListRecyclerviewAdapter(private var list: List<BatteryInfo>) :
 
     private fun longToDate(time: Long): String {
         val date = Date(time)
-        val sd = SimpleDateFormat("HH:mm:ss")
+        val sd = SimpleDateFormat("HH:mm:ss" , Locale.getDefault())
         sd.timeZone = TimeZone.GMT_ZONE
         return sd.format(date)
     }

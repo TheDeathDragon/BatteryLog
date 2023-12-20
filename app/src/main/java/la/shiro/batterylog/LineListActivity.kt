@@ -1,6 +1,7 @@
 package la.shiro.batterylog
 
 import android.icu.text.SimpleDateFormat
+import android.icu.util.TimeZone
 import android.os.BatteryManager
 import android.os.Bundle
 import android.os.Environment
@@ -135,7 +136,7 @@ class LineListActivity : AppCompatActivity() {
             val fileOutputStream = FileOutputStream(file)
             bufferedWriter = BufferedWriter(OutputStreamWriter(fileOutputStream, "gb2312"))
             val line =
-                "datetime" + "," + "level" + "," + "temperature" + "," + "voltage" + "," + "status" + "\r\n"
+                "datetime" + "," + "time" + "," + "level" + "," + "temperature" + "," + "voltage" + "," + "status" + "\r\n"
             bufferedWriter.write(line)
             val status: String = when (dataList.first().status) {
                 BatteryManager.BATTERY_STATUS_UNKNOWN ->
@@ -157,11 +158,17 @@ class LineListActivity : AppCompatActivity() {
                     getString(R.string.BATTERY_STATUS_UNKNOWN)
             }
             val line1 =
-                longToDate(dataList.first().title + dataList.first().time) + "," + dataList.first().level.toString() + "," + ((dataList.first().temperature).toFloat() / 10).toString() + "," + dataList.first().voltage.toString() + "," + status + "\r\n"
+                longToDate(dataList.first().title + dataList.first().time) + "," +
+                        longToTime(dataList.first().time) + "," +
+                        dataList.first().level.toString() + "," +
+                        ((dataList.first().temperature).toFloat() / 10).toString() + "," +
+                        dataList.first().voltage.toString() + "," + status + "\r\n"
+
             bufferedWriter.write(line1)
 
             var level = dataList.first().level
             for (item in dataList) {
+                Log.d("Rin", "item:$item")
                 if (item.level != level || level == dataList.last().level) {
                     level = item.level
                     val status1: String = when (item.status) {
@@ -184,7 +191,12 @@ class LineListActivity : AppCompatActivity() {
                             getString(R.string.BATTERY_STATUS_UNKNOWN)
                     }
                     val line2 =
-                        longToDate(item.title + item.time) + "," + item.level.toString() + "," + ((item.temperature.toFloat()) / 10).toString() + "," + item.voltage.toString() + "," + status1 + "\r\n"
+                        longToDate(item.title + item.time) + "," +
+                                longToTime(item.time) + "," +
+                                item.level.toString() + "," +
+                                ((item.temperature.toFloat()) / 10).toString() + "," +
+                                item.voltage.toString() + "," +
+                                status1 + "\r\n"
                     bufferedWriter.write(line2)
                 }
             }
@@ -204,7 +216,14 @@ class LineListActivity : AppCompatActivity() {
 
     private fun longToDate(lo: Long): String {
         val date = Date(lo)
-        val sd = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val sd = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        return sd.format(date)
+    }
+
+    private fun longToTime(lo: Long): String {
+        val date = Date(lo)
+        val sd = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+        sd.timeZone = TimeZone.GMT_ZONE
         return sd.format(date)
     }
 }

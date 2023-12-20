@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import la.shiro.batterylog.R
 import java.util.*
 
 class LogListRecyclerviewAdapter(private var list: List<Long>) :
@@ -49,7 +48,7 @@ class LogListRecyclerviewAdapter(private var list: List<Long>) :
 
     private fun longToDate(lo: Long): String? {
         val date = Date(lo)
-        val sd = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val sd = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         return sd.format(date)
     }
 

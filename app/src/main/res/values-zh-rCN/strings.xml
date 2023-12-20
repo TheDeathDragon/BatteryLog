@@ -3,13 +3,15 @@
     <string name="app_name">Battery Log</string>
     <string name="status">状态</string>
     <string name="health">健康</string>
-    <string name="present">电池存在</string>
+    <string name="present">电池</string>
     <string name="level">电量</string>
-    <string name="plugged">插入</string>
+    <string name="plugged">接口</string>
     <string name="voltage">电压</string>
     <string name="temperature">温度</string>
-    <string name="notification_permission_denied">没有权限启动服务</string>
-    <string name="notification_permission_granted">权限已经授予，请再次启动服务</string>
+    <string name="notification_permission_denied">没有通知权限启动服务</string>
+    <string name="notification_permission_granted">通知权限已经授予，请再次启动服务</string>
+    <string name="background_run_permission_granted">后台运行权限已经授予，请再次启动服务</string>
+    <string name="background_run_permission_not_granted">未授予后台运行权限</string>
     <string name="BATTERY_STATUS_UNKNOWN">状态未知</string>
     <string name="BATTERY_STATUS_CHARGING">充电中</string>
     <string name="BATTERY_STATUS_DISCHARGING">放电中</string>
@@ -22,23 +24,26 @@
     <string name="BATTERY_HEALTH_OVER_VOLTAGE">电池过压</string>
     <string name="BATTERY_HEALTH_UNSPECIFIED_FAILURE">未知错误</string>
     <string name="BATTERY_HEALTH_COLD">电池温度过低</string>
-    <string name="BATTERY_PLUGGED_WIRELESS">无线</string>
+    <string name="BATTERY_PLUGGED_AC">已插入 (AC)</string>
+    <string name="BATTERY_PLUGGED_USB">已插入 (USB)</string>
+    <string name="BATTERY_PLUGGED_WIRELESS">无线充电</string>
     <string name="BATTERY_HAVE_BATTERY">有电池</string>
     <string name="NO_BATTERY">没有电池</string>
-    <string name="stopBatteryLogService">停止 BatteryLog 服务</string>
-    <string name="startBatteryLogService">开启 BatteryLog 服务</string>
+    <string name="stopBatteryLogService">停止服务</string>
+    <string name="startBatteryLogService">启动服务</string>
     <string name="service_is_running">BatteryLog 服务正在运行</string>
+    <string name="BATTERY_PLUGGED_NONE">未插入充电器</string>
     <string name="main_menu_setting_item">设置</string>
     <string name="title_activity_settings">BatteryLog 设置</string>
     <string name="is_boot_run">开机自动启动服务</string>
-    <string name="current">充电电流</string>
-    <string name="capacity">电池容量</string>
+    <string name="current">电流</string>
+    <string name="capacity">容量</string>
     <string name="alert">警告</string>
     <string name="alert_massage">确认删除本条数据吗？删除后无法恢复！</string>
     <string name="confirm">确认</string>
     <string name="cancel">取消</string>
     <string name="alert_massage_all">确认删除所有数据吗？删除后无法恢复！</string>
-    <string name="log_list">历史记录</string>
+    <string name="log_list">查看记录</string>
     <string name="open_the_chart">图表</string>
     <string name="open_list">数据</string>
     <string name="delete">删除</string>
@@ -48,7 +53,7 @@
     <string name="time">时间</string>
     <string name="main_menu_about_item">关于</string>
     <string name="about_app">功能介绍</string>
-    <string name="about_app_info">电池Log记录是一款记录电池电压电流温度等参数的软件，可以用于测试电池的充放电曲线和温度。记录的数据可以绘制成曲线图，也可以导出保存成CSV格式。</string>
+    <string name="about_app_info">Battery Log 是一款记录电池电压电流温度等参数的软件，可以用于测试电池的充放电曲线和温度。同时，数据也可以导出保存成CSV格式。</string>
     <string name="about_license">版权声明</string>
     <string name="about_app_license">
 Copyright © 2023 RinShiro . All Rights Reserved.
@@ -70,6 +75,4 @@ limitations under the License.
         \n
         \n    https://github.com/PhilJay/MPAndroidChart
     </string>
-    <string name="background_run_permission_granted">后台运行权限已经授予</string>
-    <string name="background_run_permission_not_granted">未授予后台运行权限</string>
 </resources>

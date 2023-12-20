@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
-import la.shiro.batterylog.R
 
 class SettingsActivity : AppCompatActivity() {
 

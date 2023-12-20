@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import la.shiro.batterylog.R
 
 class BatteryInfoRecyclerViewAdapter(
     private var mutableMap: MutableMap<String, String>,
