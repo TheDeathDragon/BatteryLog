@@ -130,14 +130,22 @@ class LineListActivity : AppCompatActivity() {
             applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
             fileName
         )
+        val datFile = File(
+            applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+            "$title.dat"
+        )
         var isSuccessful: Boolean
         var bufferedWriter: BufferedWriter? = null
+        var datBufferedWriter: BufferedWriter? = null
         try {
             val fileOutputStream = FileOutputStream(file)
+            val datFileOutputStream = FileOutputStream(datFile)
             bufferedWriter = BufferedWriter(OutputStreamWriter(fileOutputStream, "gb2312"))
+            datBufferedWriter = BufferedWriter(OutputStreamWriter(datFileOutputStream, "utf-8"))
             val line =
                 "datetime" + "," + "time" + "," + "level" + "," + "temperature" + "," + "voltage" + "," + "status" + "\r\n"
             bufferedWriter.write(line)
+            datBufferedWriter.write(line)
             val status: String = when (dataList.first().status) {
                 BatteryManager.BATTERY_STATUS_UNKNOWN ->
                     getString(R.string.BATTERY_STATUS_UNKNOWN)
@@ -165,6 +173,7 @@ class LineListActivity : AppCompatActivity() {
                         dataList.first().voltage.toString() + "," + status + "\r\n"
 
             bufferedWriter.write(line1)
+            datBufferedWriter.write(line1)
 
             var level = dataList.first().level
             for (item in dataList) {
@@ -198,6 +207,7 @@ class LineListActivity : AppCompatActivity() {
                                 item.voltage.toString() + "," +
                                 status1 + "\r\n"
                     bufferedWriter.write(line2)
+                    datBufferedWriter.write(line2)
                 }
             }
             isSuccessful = true
@@ -207,6 +217,7 @@ class LineListActivity : AppCompatActivity() {
         } finally {
             try {
                 bufferedWriter?.close()
+                datBufferedWriter?.close()
             } catch (e: Exception) {
                 e.printStackTrace()
             }

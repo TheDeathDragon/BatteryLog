@@ -53,26 +53,20 @@
     <string name="time">时间</string>
     <string name="main_menu_about_item">关于</string>
     <string name="about_app">功能介绍</string>
-    <string name="about_app_info">Battery Log 是一款记录电池电压电流温度等参数的软件，可以用于测试电池的充放电曲线和温度。同时，数据也可以导出保存成CSV格式。</string>
-    <string name="about_license">版权声明</string>
-    <string name="about_app_license">
-Copyright © 2023 RinShiro . All Rights Reserved.
+    <string name="about_app_info">Battery Log 是一款记录电池电压电流温度等参数的软件，可以用于测试电池的充放电曲线和温度。\n同时，数据也可以导出保存成CSV格式。</string>
+    <string name="author">作者</string>
+    <string name="author_info">
+\nAuthor: RinShiro
 \n
-\nLicensed under the Apache License, Version 2.0 (the "License");
-\nyou may not use this file except in compliance with the License.
-\nYou may obtain a copy of the License at
+\nEmail: 249501281@qq.com
 \n
-\n    http://www.apache.org/licenses/LICENSE-2.0
+\nMade with ❤️ in 2023
+    </string>
+    <string name="open_source_license">开源协议</string>
+    <string name="open_source_license_info">
+\n本项目使用了如下开源项目代码
 \n
-\nUnless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-        \n
-        \n本项目引用了如下开源项目代码
-            \nMPAndroidChart
-        \n
-        \n    https://github.com/PhilJay/MPAndroidChart
+\nMPAndroidChart
+\nhttps://github.com/PhilJay/MPAndroidChart
     </string>
 </resources>
