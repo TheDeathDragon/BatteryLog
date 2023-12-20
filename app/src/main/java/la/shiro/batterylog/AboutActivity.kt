@@ -3,7 +3,6 @@ package la.shiro.batterylog
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import la.shiro.batterylog.R
 
 class AboutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

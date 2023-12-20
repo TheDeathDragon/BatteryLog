@@ -24,8 +24,8 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
-import la.shiro.batterylog.database.BatteryInfo
 import kotlinx.coroutines.launch
+import la.shiro.batterylog.database.BatteryInfo
 import java.util.*
 
 
@@ -47,6 +47,10 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
             addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         }
         supportActionBar?.hide()
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+            WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+        )
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         setContentView(R.layout.activity_line_chart)
         lineChart = findViewById<View>(R.id.lineChart) as LineChart
@@ -170,7 +174,7 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
 
     fun longToDate(lo: Long): String {
         val date = Date(lo)
-        val sd = SimpleDateFormat("HH:mm")
+        val sd = SimpleDateFormat("HH:mm", Locale.getDefault())
         sd.timeZone = TimeZone.GMT_ZONE
         return sd.format(date)
     }
@@ -202,14 +206,14 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         lineChart.legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         lineChart.legend.textColor = getColor(R.color.white)
         //设置背景
-        lineChart.setBackgroundColor(getColor(R.color.purple_500))
+        lineChart.setBackgroundColor(getColor(R.color.material_dynamic_primary10))
 
         xAxis = lineChart.xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.axisLineWidth = 2f
-        xAxis.axisLineColor = getColor(R.color.purple_400)
+        xAxis.axisLineColor = getColor(R.color.material_dynamic_primary40)
         xAxis.textColor = getColor(R.color.white)
-        xAxis.gridColor = getColor(R.color.purple_400)
+        xAxis.gridColor = getColor(R.color.material_dynamic_primary40)
         //使用虚线组成的网格线
         //参数：linelength：虚线长度
         // spacelength:虚线间隔长度
@@ -232,8 +236,8 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         rightAxis.axisLineWidth = 2f
         rightAxis.labelCount = 10
         rightAxis.setDrawAxisLine(false)
-        rightAxis.axisLineColor = getColor(R.color.purple_400)
-        rightAxis.gridColor = getColor(R.color.purple_400)
+        rightAxis.axisLineColor = getColor(R.color.material_dynamic_primary40)
+        rightAxis.gridColor = getColor(R.color.material_dynamic_primary40)
         rightAxis.textColor = getColor(R.color.white)
         rightAxis.setDrawGridLines(true)
         rightAxis.axisMaximum = 75f
@@ -244,8 +248,8 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         leftAxis.axisLineWidth = 2f
         leftAxis.labelCount = 10
         leftAxis.setDrawAxisLine(false)
-        leftAxis.axisLineColor = getColor(R.color.purple_400)
-        leftAxis.gridColor = getColor(R.color.purple_400)
+        leftAxis.axisLineColor = getColor(R.color.material_dynamic_primary40)
+        leftAxis.gridColor = getColor(R.color.material_dynamic_primary40)
         leftAxis.textColor = getColor(R.color.white)
         leftAxis.setDrawGridLines(true)
         leftAxis.axisMaximum = 105f
@@ -283,6 +287,7 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         lineDataSetLevel.cubicIntensity = 20f
         lineDataSetLevel.setDrawCircles(false)
         lineDataSetLevel.setDrawCircleHole(false)
+        lineDataSetLevel.color = getColor(R.color.teal_200)
 
 
         lineDataSetTemperature =
