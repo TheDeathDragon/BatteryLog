@@ -10,20 +10,24 @@
     android:paddingRight="10dp">
 
     <TextView
-        android:id="@+id/textView_battery_info_t"
+        android:id="@+id/tv_battery_stats_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        android:text="Option"
+        android:gravity="start"
+        android:text="@string/status"
+        android:textAlignment="textStart"
         android:textColor="?attr/colorOnPrimary"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView_battery_info_v"
+        android:id="@+id/tv_battery_status_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Value"
+        android:gravity="start"
+        android:text="@string/battery_status_charging"
+        android:textAlignment="textStart"
         android:textColor="?attr/colorOnPrimary"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 </LinearLayout>

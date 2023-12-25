@@ -8,8 +8,12 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
 
     <application
@@ -33,16 +37,15 @@
 
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".LineListActivity"
-            android:parentActivityName=".LogListActivity" />
+            android:name=".BatteryLogDetailActivity"
+            android:parentActivityName=".BatteryLogActivity" />
         <activity
-            android:name=".LineChartActivity"
-            android:parentActivityName=".LogListActivity" />
+            android:name=".BatteryLogChartActivity"
+            android:parentActivityName=".BatteryLogActivity" />
         <activity
-            android:name=".LogListActivity"
+            android:name=".BatteryLogActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
@@ -56,13 +59,13 @@
         </activity>
 
         <service
-            android:name=".BatteryLogService"
+            android:name=".service.BatteryLogService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="dataSync"
             android:priority="1000" />
         <receiver
-            android:name=".BootBroadcastReceiver"
+            android:name=".receiver.BootBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

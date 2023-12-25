@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/save_as"
-        android:icon="@drawable/ic_baseline_save_24"
+        android:icon="@drawable/ic_baseline_save"
         android:orderInCategory="100"
         android:title="@string/save_data_as"
         app:showAsAction="always|withText" />
