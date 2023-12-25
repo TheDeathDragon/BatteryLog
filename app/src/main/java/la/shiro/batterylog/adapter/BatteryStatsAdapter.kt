@@ -1,26 +1,27 @@
-package la.shiro.batterylog
+package la.shiro.batterylog.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import la.shiro.batterylog.R
 
-class BatteryInfoRecyclerViewAdapter(
+class BatteryStatsAdapter(
     private var mutableMap: MutableMap<String, String>,
     private var batteryStatNameList: List<String>,
     private var batteryStatValueList: List<String>
 ) :
-    RecyclerView.Adapter<BatteryInfoRecyclerViewAdapter.ViewHolder>() {
+    RecyclerView.Adapter<BatteryStatsAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var value: TextView = itemView.findViewById<View>(R.id.textView_battery_info_v) as TextView
-        var name: TextView = itemView.findViewById<View>(R.id.textView_battery_info_t) as TextView
+        var value: TextView = itemView.findViewById<View>(R.id.tv_battery_status_value) as TextView
+        var name: TextView = itemView.findViewById<View>(R.id.tv_battery_stats_title) as TextView
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.battery_info_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.battery_stats_item, parent, false)
         return ViewHolder(view)
     }
 

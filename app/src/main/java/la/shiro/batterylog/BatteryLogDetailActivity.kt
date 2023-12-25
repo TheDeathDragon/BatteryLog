@@ -17,7 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import la.shiro.batterylog.adapter.BatteryLogDetailAdapter
+import la.shiro.batterylog.config.TAG
 import la.shiro.batterylog.database.BatteryInfo
+import la.shiro.batterylog.viewmodel.ChartViewModel
+import la.shiro.batterylog.viewmodel.ChartViewModelFactory
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileOutputStream
@@ -25,27 +29,27 @@ import java.io.OutputStreamWriter
 import java.util.*
 
 
-class LineListActivity : AppCompatActivity() {
+class BatteryLogDetailActivity : AppCompatActivity() {
 
     private lateinit var list: List<BatteryInfo>
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: LineListRecyclerviewAdapter
+    private lateinit var adapter: BatteryLogDetailAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_line_list)
+        setContentView(R.layout.activity_log_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title = longToDate(intent.getLongExtra("testTitle", 0))
             .replace(" ", "-")
             .replace(":", "-")
-        recyclerView = findViewById<View>(R.id.lineListActivity_recyclerView) as RecyclerView
+        recyclerView = findViewById<View>(R.id.log_detail_recycler_view) as RecyclerView
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         list = listOf()
-        adapter = LineListRecyclerviewAdapter(list)
+        adapter = BatteryLogDetailAdapter(list)
         recyclerView.adapter = adapter
-        val lineCharViewMode: LineChartViewMode by viewModels {
-            LineChartViewModeFactory(
+        val lineCharViewMode: ChartViewModel by viewModels {
+            ChartViewModelFactory(
                 (application as BatteryLogApplication).repository, intent.getLongExtra(
                     "testTitle",
                     0
@@ -84,15 +88,10 @@ class LineListActivity : AppCompatActivity() {
                                         "$title.csv"
                                     ).path, Snackbar.LENGTH_LONG
                         )
-//                            .setAction(
-//                                "打开文件目录"
-//                            ) {
-//                                //调用系统文件管理器打开指定路径目录
-//                                openAssignFolder()
-//                            }
                             .show()
                         Log.d(
-                            "Rin",
+                            TAG,
+                            "BatteryLogDetailActivity --> onOptionsItemSelected: save data as " +
                             File(
                                 applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
                                 "$title.csv"
@@ -105,26 +104,6 @@ class LineListActivity : AppCompatActivity() {
         return true
     }
 
-    //    private fun openAssignFolder() {
-//        val intent = Intent(Intent.ACTION_GET_CONTENT)
-//        intent.addCategory(Intent.CATEGORY_DEFAULT)
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//        val contentUri = FileProvider.getUriForFile(
-//            applicationContext,
-//            "la.shiro.batterylog.provider",
-//            File(
-//                applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
-//                "$title.csv"
-//            )
-//        )
-//        intent.setDataAndType(contentUri, "file/*")
-//        try {
-//            startActivity(intent)
-//            //            startActivity(Intent.createChooser(intent,"选择浏览工具"));
-//        } catch (e: ActivityNotFoundException) {
-//            e.printStackTrace()
-//        }
-//    }
     private fun saveAsCSV(fileName: String, dataList: List<BatteryInfo>): Boolean {
         val file = File(
             applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
@@ -148,22 +127,22 @@ class LineListActivity : AppCompatActivity() {
             datBufferedWriter.write(line)
             val status: String = when (dataList.first().status) {
                 BatteryManager.BATTERY_STATUS_UNKNOWN ->
-                    getString(R.string.BATTERY_STATUS_UNKNOWN)
+                    getString(R.string.battery_status_unknown)
 
                 BatteryManager.BATTERY_STATUS_CHARGING ->
-                    getString(R.string.BATTERY_STATUS_CHARGING)
+                    getString(R.string.battery_status_charging)
 
                 BatteryManager.BATTERY_STATUS_DISCHARGING ->
-                    getString(R.string.BATTERY_STATUS_DISCHARGING)
+                    getString(R.string.battery_status_discharging)
 
                 BatteryManager.BATTERY_STATUS_NOT_CHARGING ->
-                    getString(R.string.BATTERY_STATUS_NOT_CHARGING)
+                    getString(R.string.battery_status_not_charging)
 
                 BatteryManager.BATTERY_STATUS_FULL ->
-                    getString(R.string.BATTERY_STATUS_FULL)
+                    getString(R.string.battery_status_full)
 
                 else ->
-                    getString(R.string.BATTERY_STATUS_UNKNOWN)
+                    getString(R.string.battery_status_unknown)
             }
             val line1 =
                 longToDate(dataList.first().title + dataList.first().time) + "," +
@@ -177,27 +156,26 @@ class LineListActivity : AppCompatActivity() {
 
             var level = dataList.first().level
             for (item in dataList) {
-                Log.d("Rin", "item:$item")
                 if (item.level != level || level == dataList.last().level) {
                     level = item.level
                     val status1: String = when (item.status) {
                         BatteryManager.BATTERY_STATUS_UNKNOWN ->
-                            getString(R.string.BATTERY_STATUS_UNKNOWN)
+                            getString(R.string.battery_status_unknown)
 
                         BatteryManager.BATTERY_STATUS_CHARGING ->
-                            getString(R.string.BATTERY_STATUS_CHARGING)
+                            getString(R.string.battery_status_charging)
 
                         BatteryManager.BATTERY_STATUS_DISCHARGING ->
-                            getString(R.string.BATTERY_STATUS_DISCHARGING)
+                            getString(R.string.battery_status_discharging)
 
                         BatteryManager.BATTERY_STATUS_NOT_CHARGING ->
-                            getString(R.string.BATTERY_STATUS_NOT_CHARGING)
+                            getString(R.string.battery_status_not_charging)
 
                         BatteryManager.BATTERY_STATUS_FULL ->
-                            getString(R.string.BATTERY_STATUS_FULL)
+                            getString(R.string.battery_status_full)
 
                         else ->
-                            getString(R.string.BATTERY_STATUS_UNKNOWN)
+                            getString(R.string.battery_status_unknown)
                     }
                     val line2 =
                         longToDate(item.title + item.time) + "," +

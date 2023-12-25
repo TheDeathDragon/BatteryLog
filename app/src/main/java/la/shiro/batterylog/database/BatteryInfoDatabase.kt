@@ -35,7 +35,7 @@ abstract class BatteryInfoDatabase : RoomDatabase() {
                     "battery_info_database"
                 )
                     // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
+                    // Migration is not part of this code lab.
                     .fallbackToDestructiveMigration()
                     .addCallback(WordDatabaseCallback(scope))
                     .build()

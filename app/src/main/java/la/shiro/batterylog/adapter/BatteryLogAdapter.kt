@@ -1,5 +1,6 @@
-package la.shiro.batterylog
+package la.shiro.batterylog.adapter
 
+import android.annotation.SuppressLint
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -7,27 +8,28 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import la.shiro.batterylog.R
 import java.util.*
 
-class LogListRecyclerviewAdapter(private var list: List<Long>) :
-    RecyclerView.Adapter<LogListRecyclerviewAdapter.ViewHolder>() {
+class BatteryLogAdapter(private var list: List<Long>) :
+    RecyclerView.Adapter<BatteryLogAdapter.ViewHolder>() {
     private lateinit var itemOnClickListener: ItemOnClickListener
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView =
-            itemView.findViewById<View>(R.id.test_list_recyclerview_item_textView) as TextView
+            itemView.findViewById<View>(R.id.tv_log_item) as TextView
         var deleteButton: Button =
-            itemView.findViewById<View>(R.id.test_list_recyclerview_item_deleteButton) as Button
+            itemView.findViewById<View>(R.id.btn_log_item_delete) as Button
         var chartButton: Button =
-            itemView.findViewById<View>(R.id.test_list_recyclerview_item_chartButton) as Button
+            itemView.findViewById<View>(R.id.btn_log_item_chart) as Button
         var listButton: Button =
-            itemView.findViewById<View>(R.id.test_list_recyclerview_item_listButton) as Button
+            itemView.findViewById<View>(R.id.btn_log_item_detail) as Button
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View =
             LayoutInflater.from(parent.context).inflate(
-                R.layout.test_list_recyclerview_item,
+                R.layout.battery_log_item,
                 parent,
                 false
             )
@@ -46,21 +48,22 @@ class LogListRecyclerviewAdapter(private var list: List<Long>) :
         return list.size
     }
 
-    private fun longToDate(lo: Long): String? {
-        val date = Date(lo)
+    private fun longToDate(timeStamp: Long): String? {
+        val date = Date(timeStamp)
         val sd = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         return sd.format(date)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<Long>) {
         this.list = list
         notifyDataSetChanged()
     }
 
     interface ItemOnClickListener {
-        fun onClickChartButton(lo: Long)
-        fun onClickDeleteButton(lo: Long)
-        fun onClickListButton(lo: Long)
+        fun onClickChartButton(timeStamp: Long)
+        fun onClickDeleteButton(timeStamp: Long)
+        fun onClickListButton(timeStamp: Long)
     }
 
     fun setClickListener(itemOnClickListener: ItemOnClickListener) {

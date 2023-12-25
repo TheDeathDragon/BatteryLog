@@ -1,4 +1,4 @@
-package la.shiro.batterylog
+package la.shiro.batterylog.service
 
 import android.annotation.SuppressLint
 import android.app.Notification
@@ -23,15 +23,19 @@ import android.widget.RemoteViews
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import la.shiro.batterylog.BatteryLogApplication
+import la.shiro.batterylog.MainActivity
+import la.shiro.batterylog.R
+import la.shiro.batterylog.config.TAG
+import la.shiro.batterylog.config.CHANNEL_ID
+import la.shiro.batterylog.config.SERVICE_NAME
+import la.shiro.batterylog.config.WAKE_LOG_TAG
 import la.shiro.batterylog.database.BatteryInfo
 import la.shiro.batterylog.database.BatteryInfoRepository
 
 
 class BatteryLogService : Service() {
-    private val TAG = "Rin"
-    private val channelID = "channel_1"
-    private val serviceName = "BatteryLogService"
-    private val wakeLockTag = "Rin:BatteryLogWakeLock"
+
     private var testTitle: Long = 0
     private var startTime: Long = 0
     private lateinit var batteryInfoRepository: BatteryInfoRepository
@@ -49,10 +53,10 @@ class BatteryLogService : Service() {
         val pm = this.getSystemService(POWER_SERVICE) as PowerManager
         wakeLock = pm.newWakeLock(
             PowerManager.ON_AFTER_RELEASE
-                    or PowerManager.PARTIAL_WAKE_LOCK, wakeLockTag
+                    or PowerManager.PARTIAL_WAKE_LOCK, WAKE_LOG_TAG
         )
         wakeLock.acquire()
-        Log.d(TAG, "onCreate executed")
+        Log.d(TAG, "BatteryLogService --> onCreate")
         setForeground()
         batteryInfoRepository = (application as BatteryLogApplication).repository
         applicationScope = (application as BatteryLogApplication).applicationScope
@@ -119,9 +123,9 @@ class BatteryLogService : Service() {
     private fun setForeground() {
         manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val channel =
-            NotificationChannel(channelID, serviceName, NotificationManager.IMPORTANCE_HIGH)
+            NotificationChannel(CHANNEL_ID, SERVICE_NAME, NotificationManager.IMPORTANCE_HIGH)
         manager.createNotificationChannel(channel)
-        notificationLayout = RemoteViews(packageName, R.layout.notification)
+        notificationLayout = RemoteViews(packageName, R.layout.notification_container)
 
         // Create an Intent for the activity you want to start
         val startActivityIntent = Intent(this, MainActivity::class.java)
@@ -132,7 +136,7 @@ class BatteryLogService : Service() {
             FLAG_MUTABLE or FLAG_UPDATE_CURRENT
         )
 
-        notification = Notification.Builder(this, channelID)
+        notification = Notification.Builder(this, CHANNEL_ID)
             .setContentTitle(getString(R.string.service_is_running))
             .setSmallIcon(R.drawable.ic_notification)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_notification))

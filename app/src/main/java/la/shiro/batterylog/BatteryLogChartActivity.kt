@@ -26,10 +26,12 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import kotlinx.coroutines.launch
 import la.shiro.batterylog.database.BatteryInfo
+import la.shiro.batterylog.viewmodel.ChartViewModel
+import la.shiro.batterylog.viewmodel.ChartViewModelFactory
 import java.util.*
 
 
-class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+class BatteryLogChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var lineChart: LineChart
     private lateinit var lineDataSetLevel: LineDataSet
     private lateinit var lineDataSetTemperature: LineDataSet
@@ -52,8 +54,8 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
             WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
         )
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        setContentView(R.layout.activity_line_chart)
-        lineChart = findViewById<View>(R.id.lineChart) as LineChart
+        setContentView(R.layout.activity_chart)
+        lineChart = findViewById<View>(R.id.line_chart) as LineChart
         lineChart.systemUiVisibility =
             View.SYSTEM_UI_FLAG_LOW_PROFILE or
                     View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -63,8 +65,8 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
                     View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         val intent = intent
 
-        val lineCharViewMode: LineChartViewMode by viewModels {
-            LineChartViewModeFactory(
+        val lineCharViewMode: ChartViewModel by viewModels {
+            ChartViewModelFactory(
                 (application as BatteryLogApplication).repository, intent.getLongExtra(
                     "testTitle",
                     0
@@ -92,22 +94,22 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
     private fun initCheckBox() {
         PreferenceManager.getDefaultSharedPreferences(applicationContext)
             .registerOnSharedPreferenceChangeListener(this)
-        val checkBoxLevel = findViewById<View>(R.id.checkBoxLevel) as CheckBox
+        val checkBoxLevel = findViewById<View>(R.id.check_box_level) as CheckBox
         checkBoxLevel.setOnCheckedChangeListener { buttonView, isChecked ->
             PreferenceManager.getDefaultSharedPreferences(applicationContext).edit()
-                .putBoolean("checkBoxLevel", isChecked).apply()
+                .putBoolean("check_box_level", isChecked).apply()
         }
         checkBoxLevel.isChecked = PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            .getBoolean("checkBoxLevel", true)
+            .getBoolean("check_box_level", true)
         isShowLevel = checkBoxLevel.isChecked
-        val checkBoxTemperature = findViewById<View>(R.id.checkBoxTemperature) as CheckBox
+        val checkBoxTemperature = findViewById<View>(R.id.check_box_temperature) as CheckBox
         checkBoxTemperature.setOnCheckedChangeListener { buttonView, isChecked ->
             PreferenceManager.getDefaultSharedPreferences(applicationContext).edit()
-                .putBoolean("checkBoxTemperature", isChecked).apply()
+                .putBoolean("check_box_temperature", isChecked).apply()
         }
         checkBoxTemperature.isChecked =
             PreferenceManager.getDefaultSharedPreferences(applicationContext)
-                .getBoolean("checkBoxTemperature", false)
+                .getBoolean("check_box_temperature", false)
         isShowTemperature = checkBoxTemperature.isChecked
     }
 
@@ -133,7 +135,7 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
     private fun hide() {
         // Hide UI first
         supportActionBar?.hide()
-        //lineChart.visibility = View.GONE
+        //line_chart.visibility = View.GONE
 
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -187,8 +189,8 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
         //后台绘制
         lineChart.setDrawGridBackground(false)
         //设置描述文本
-        //lineChart.description.text="12345"
-        //lineChart.description.textColor=Color.RED
+        //line_chart.description.text="12345"
+        //line_chart.description.textColor=Color.RED
         lineChart.description.isEnabled = false
         //设置支持触控手势
         lineChart.setTouchEnabled(false)
@@ -311,7 +313,7 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
 
 
     inner class MIAxisValueFormatter : ValueFormatter() {
-        // 重写XAxis或yAxis标签的自定义格式设置
+        // 重写 XAxis 或 yAxis 标签的自定义格式设置
         override fun getAxisLabel(value: Float, axis: AxisBase?): String {
             return longToDate(value.toLong())
         }
@@ -320,16 +322,16 @@ class LineChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPrefere
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when (key) {
-            "checkBoxLevel" -> {
+            "check_box_level" -> {
                 if (sharedPreferences != null) {
-                    isShowLevel = sharedPreferences.getBoolean("checkBoxLevel", true)
+                    isShowLevel = sharedPreferences.getBoolean("check_box_level", true)
                     upData()
                 }
             }
 
-            "checkBoxTemperature" -> {
+            "check_box_temperature" -> {
                 if (sharedPreferences != null) {
-                    isShowTemperature = sharedPreferences.getBoolean("checkBoxTemperature", false)
+                    isShowTemperature = sharedPreferences.getBoolean("check_box_temperature", false)
                     upData()
                 }
             }

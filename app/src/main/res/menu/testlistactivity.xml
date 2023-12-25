@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/delete_all"
-        android:icon="@drawable/ic_baseline_delete_24"
+        android:icon="@drawable/ic_baseline_delete"
         android:orderInCategory="100"
         android:title="@string/delete_all"
         app:showAsAction="always|withText" />

@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LogListActivity">
+    tools:context=".BatteryLogActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/test_list_recyclerview"
+        android:id="@+id/log_list_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

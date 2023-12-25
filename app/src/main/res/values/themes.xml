@@ -22,7 +22,4 @@
 
         <!-- Customize your theme here. -->
     </style>
-
-    <color name="gray">#80FFFFFF</color>
-    <color name="blackGray">#0D808080</color>
 </resources>

@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LineListActivity">
+    tools:context=".BatteryLogDetailActivity">
 
     <LinearLayout
-        android:id="@+id/lineListActivity_linearLayout"
+        android:id="@+id/log_detail_linear_layout"
         android:layout_width="0dp"
 
         android:layout_height="wrap_content"
         android:background="@color/material_dynamic_primary30"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/lineListActivity_recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/log_detail_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -66,11 +66,11 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lineListActivity_recyclerView"
+        android:id="@+id/log_detail_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/lineListActivity_linearLayout" />
+        app:layout_constraintTop_toBottomOf="@id/log_detail_linear_layout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

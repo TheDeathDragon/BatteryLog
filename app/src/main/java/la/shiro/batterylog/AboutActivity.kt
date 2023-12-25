@@ -9,12 +9,12 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = getString(R.string.main_menu_about_item)
+        title = getString(R.string.menu_about)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> {
+            R.id.home -> {
                 finish()
             }
         }
