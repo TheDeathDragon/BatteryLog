@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="3"
+    android:rowCount="3"
+    tools:context=".SourceView">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cpuCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_rowWeight="1"
+        android:layout_column="0"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/cpu_stress_choice"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_cpu" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cpu"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_rowWeight="1"
+        android:layout_column="1"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill">
+
+        <!-- Initially invisible because as soon as this custom view gets visible, the GPU will
+        start drawing millions of small rotating triangles -->
+        <la.shiro.batterylog.graphics.MyGLSurfaceView
+            android:id="@+id/myGLSurfaceView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:visibility="invisible" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/gpuCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/cpu_stress_choice"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_gpu" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gpu"
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="0"
+        android:layout_rowWeight="1"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill">
+
+        <!-- add the frame programmatically on camera stress enable -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/camera_preview_frag_container_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            tools:layout="@layout/fragment_camera" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cameraCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checkable="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/cpu_stress_choice"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/camera"
+                        android:textAlignment="center"
+                        android:textAppearance="?attr/textAppearanceHeadline6" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/sensorsCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_rowWeight="1"
+        android:layout_column="0"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/cpu_stress_choice"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_baseline_speaker_phone_24" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sensors"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/networkCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_rowWeight="1"
+        android:layout_column="1"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/cpu_stress_choice"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_baseline_cloud_download_24" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/network"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/locationCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_rowWeight="1"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill"
+        android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/cpu_stress_choice"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_baseline_location_on_24" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    android:textAlignment="center"
+                    android:textAppearance="?attr/textAppearanceHeadline6" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</GridLayout>

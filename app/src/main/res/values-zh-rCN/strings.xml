@@ -37,7 +37,7 @@
     <string name="activity_settings">BatteryLog 设置</string>
     <string name="service_run_on_boot">开机自动启动服务</string>
     <string name="current">电流</string>
-    <string name="capacity">容量</string>
+    <string name="capacity">剩余电量</string>
     <string name="alert">警告</string>
     <string name="alert_massage">确认删除本条数据吗？删除后无法恢复！</string>
     <string name="confirm">确认</string>
@@ -69,4 +69,8 @@
 \nMPAndroidChart
 \nhttps://github.com/PhilJay/MPAndroidChart
     </string>
+    <string name="location">GPS</string>
+    <string name="network">网络</string>
+    <string name="sensors">传感器</string>
+    <string name="camera">相机</string>
 </resources>
