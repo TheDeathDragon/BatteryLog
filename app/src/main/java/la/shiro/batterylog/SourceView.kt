@@ -17,6 +17,7 @@ import com.google.android.material.card.MaterialCardView
 import android.net.ConnectivityManager
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
+import la.shiro.batterylog.config.REQUEST_CHECK_SETTINGS
 import la.shiro.batterylog.config.TAG
 import la.shiro.batterylog.stressers.CPUStresser
 import la.shiro.batterylog.stressers.CameraStresser
@@ -27,7 +28,7 @@ import la.shiro.batterylog.stressers.SensorsStresser
 import la.shiro.batterylog.stressers.Stresser
 
 class SourceView : Fragment(R.layout.fragment_source_view) {
-    private val REQUEST_CHECK_SETTINGS = 0x1
+
 
     private lateinit var cpuStresser: CPUStresser
     private lateinit var gpuStresser: GPUStresser
