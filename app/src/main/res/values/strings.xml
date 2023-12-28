@@ -14,6 +14,7 @@
     <string name="service_is_running">Battery Log Service is running</string>
     <string name="stop_service">Stop Battery Log Service</string>
     <string name="start_service">Start Battery Log Service</string>
+    <string name="start_stress_test">Start Stress Test</string>
     <string name="battery_status_unknown">N/A</string>
     <string name="battery_status_charging">Charging</string>
     <string name="battery_status_discharging">Discharging</string>
@@ -36,13 +37,13 @@
     <string name="activity_settings">SettingsActivity</string>
     <string name="service_run_on_boot">Start service on boot</string>
     <string name="current">Current</string>
-    <string name="capacity">Capacity</string>
+    <string name="capacity">Remaining</string>
     <string name="alert">Alert</string>
     <string name="alert_massage">Are you sure to delete this data? Unable to restore after deletion!</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="alert_massage_all">Are you sure to delete all data? Unable to restore after deletion!</string>
-    <string name="log_list">History</string>
+    <string name="log_list">Battery Log History</string>
     <string name="open_log_chart">Graph</string>
     <string name="open_log_detail">Detail</string>
     <string name="delete">Delete</string>
@@ -68,4 +69,11 @@
 \nMPAndroidChart
 \nhttps://github.com/PhilJay/MPAndroidChart
     </string>
+    <string name="cpu_stress_choice">CPU stress choice</string>
+    <string name="location">Location</string>
+    <string name="network">Network</string>
+    <string name="sensors">Sensors</string>
+    <string name="camera">Camera</string>
+    <string name="gpu" translatable="false">GPU</string>
+    <string name="cpu" translatable="false">CPU</string>
 </resources>

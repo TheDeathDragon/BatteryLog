@@ -36,6 +36,7 @@ import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         listname = listOf(
             "status",
             "health",
@@ -232,7 +233,8 @@ class MainActivity : AppCompatActivity() {
         var isServiceRunning = false
         val activityManager = mContext
             .getSystemService(ACTIVITY_SERVICE) as ActivityManager
-        val runningServiceInfoList: List<ActivityManager.RunningServiceInfo> = activityManager.getRunningServices(40)
+        val runningServiceInfoList: List<ActivityManager.RunningServiceInfo> =
+            activityManager.getRunningServices(40)
         if (runningServiceInfoList.isEmpty()) {
             return false
         }
