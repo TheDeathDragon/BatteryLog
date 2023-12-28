@@ -14,7 +14,7 @@ class CPUStresser(context: Context) : Stresser(context) {
         val algorithm = "SHA-512"
         val md = MessageDigest.getInstance(algorithm)
         val luckyDigest: ByteArray =
-            ByteBuffer.allocate(64).also { bb -> (1..32).forEach { bb.put(0x1A); bb.put(0x2B) } }
+            ByteBuffer.allocate(64).also { bb -> (1..32).forEach { _ -> bb.put(0x1A); bb.put(0x2B) } }
                 .array() //1A2B1A2B..2B - 64 bytes = 512 bits
 
         val buffer: ByteBuffer = ByteBuffer.allocate(Long.SIZE_BYTES)

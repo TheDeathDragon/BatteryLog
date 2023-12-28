@@ -31,6 +31,7 @@ class LocationStresser(context: Context) : Stresser(context) {
 
         override fun onProviderEnabled(provider: String) = Unit
         override fun onProviderDisabled(provider: String) = Unit
+        @Deprecated("Deprecated in Java", ReplaceWith("Unit"))
         override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) = Unit
     }
 
