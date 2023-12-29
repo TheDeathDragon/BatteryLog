@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         logHistoryButton.setOnClickListener {
-            startTestListActivity()
+            startBatteryLogActivity()
         }
     }
 
@@ -125,17 +125,22 @@ class MainActivity : AppCompatActivity() {
             R.id.main_menu_setting_item -> {
                 val intent = Intent(this@MainActivity, SettingsActivity::class.java)
                 startActivity(intent)
+                return true
             }
 
             R.id.main_menu_about_item -> {
                 val intent = Intent(this@MainActivity, AboutActivity::class.java)
                 startActivity(intent)
+                return true
+            }
+
+            else -> {
+                return super.onOptionsItemSelected(item)
             }
         }
-        return true
     }
 
-    private fun startTestListActivity() {
+    private fun startBatteryLogActivity() {
         val intent = Intent(this@MainActivity, BatteryLogActivity::class.java)
         startActivity(intent)
     }
