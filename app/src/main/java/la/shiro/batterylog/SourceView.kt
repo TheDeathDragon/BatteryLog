@@ -77,7 +77,17 @@ class SourceView : Fragment(R.layout.fragment_source_view) {
             if (isGranted) {
                 // Permission is granted. Continue the action or workflow in your app.
                 Log.d(TAG, "$permissionName permission is granted")
-                stresser.start()
+                try {
+                    stresser.start()
+                } catch (e: Exception) {
+                    Log.d(TAG, "Exception: $e")
+                    cardView.isChecked = false
+                    Toast.makeText(
+                        requireContext(),
+                        "Stresser failed to start: $e",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
             } else {
                 // Explain to the user that the feature is unavailable because the
                 // features requires a permission that the user has denied. At the
