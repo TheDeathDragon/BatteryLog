@@ -31,7 +31,8 @@ import la.shiro.batterylog.viewmodel.ChartViewModelFactory
 import java.util.*
 
 
-class BatteryLogChartActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
+class BatteryLogChartActivity : AppCompatActivity(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
     private lateinit var lineChart: LineChart
     private lateinit var lineDataSetLevel: LineDataSet
     private lateinit var lineDataSetTemperature: LineDataSet
@@ -83,11 +84,10 @@ class BatteryLogChartActivity : AppCompatActivity(), SharedPreferences.OnSharedP
                 )
         }
 
-        lineCharViewMode.testLog.observe(owner = this) { testLog ->
+        lineCharViewMode.testLog.observe(owner = this@BatteryLogChartActivity) { testLog ->
             batteryInfo = testLog
             upData()
         }
-
         initCheckBox()
     }
 
