@@ -1,7 +1,10 @@
 package la.shiro.batterylog
 
+import android.app.Activity
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.TimeZone
+import android.net.Uri
 import android.os.BatteryManager
 import android.os.Bundle
 import android.os.Environment
@@ -9,6 +12,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
@@ -34,6 +38,25 @@ class BatteryLogDetailActivity : AppCompatActivity() {
     private lateinit var list: List<BatteryInfo>
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BatteryLogDetailAdapter
+    private val CREATE_CSV_FILE_REQUEST_CODE = 1001
+    private val CREATE_DAT_FILE_REQUEST_CODE = 1002
+    
+    private val createCSVFileLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.data?.let { uri ->
+                saveCSVToUri(uri, list)
+                Snackbar.make(
+                    recyclerView, 
+                    getString(R.string.save_data_as) + uri.path, 
+                    Snackbar.LENGTH_LONG
+                ).show()
+                saveDataFileToSystem("$title.dat", list)
+            }
+        }
+    }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_detail)
@@ -76,55 +99,30 @@ class BatteryLogDetailActivity : AppCompatActivity() {
             }
 
             R.id.save_as -> {
-                (application as BatteryLogApplication).applicationScope.launch {
-
-                    if (withContext(this.coroutineContext) {
-                            saveAsCSV("$title.csv", list)
-                        }) {
-                        Snackbar.make(
-                            recyclerView, getString(R.string.save_data_as) +
-                                    File(
-                                        applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
-                                        "$title.csv"
-                                    ).path, Snackbar.LENGTH_LONG
-                        )
-                            .show()
-                        Log.d(
-                            TAG,
-                            "BatteryLogDetailActivity --> onOptionsItemSelected: save data as " +
-                            File(
-                                applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
-                                "$title.csv"
-                            ).path
-                        )
-                    }
-                }
+                createCSVFile("$title.csv")
             }
         }
         return true
     }
-
-    private fun saveAsCSV(fileName: String, dataList: List<BatteryInfo>): Boolean {
-        val file = File(
-            applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
-            fileName
-        )
-        val datFile = File(
-            applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
-            "$title.dat"
-        )
-        var isSuccessful: Boolean
+    
+    private fun createCSVFile(fileName: String) {
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "text/csv"
+            putExtra(Intent.EXTRA_TITLE, fileName)
+        }
+        createCSVFileLauncher.launch(intent)
+    }
+    
+    private fun saveCSVToUri(uri: Uri, dataList: List<BatteryInfo>) {
         var bufferedWriter: BufferedWriter? = null
-        var datBufferedWriter: BufferedWriter? = null
         try {
-            val fileOutputStream = FileOutputStream(file)
-            val datFileOutputStream = FileOutputStream(datFile)
-            bufferedWriter = BufferedWriter(OutputStreamWriter(fileOutputStream, "gb2312"))
-            datBufferedWriter = BufferedWriter(OutputStreamWriter(datFileOutputStream, "utf-8"))
-            val line =
-                "datetime" + "," + "time" + "," + "level" + "," + "temperature" + "," + "voltage" + "," + "status" + "\r\n"
+            val outputStream = contentResolver.openOutputStream(uri)
+            bufferedWriter = BufferedWriter(OutputStreamWriter(outputStream, "gb2312"))
+            
+            val line = "datetime" + "," + "time" + "," + "level" + "," + "temperature" + "," + "voltage" + "," + "status" + "\r\n"
             bufferedWriter.write(line)
-            datBufferedWriter.write(line)
+            
             val status: String = when (dataList.first().status) {
                 BatteryManager.BATTERY_STATUS_UNKNOWN ->
                     getString(R.string.battery_status_unknown)
@@ -144,6 +142,7 @@ class BatteryLogDetailActivity : AppCompatActivity() {
                 else ->
                     getString(R.string.battery_status_unknown)
             }
+            
             val line1 =
                 longToDate(dataList.first().title + dataList.first().time) + "," +
                         longToTime(dataList.first().time) + "," +
@@ -152,7 +151,6 @@ class BatteryLogDetailActivity : AppCompatActivity() {
                         dataList.first().voltage.toString() + "," + status + "\r\n"
 
             bufferedWriter.write(line1)
-            datBufferedWriter.write(line1)
 
             var level = dataList.first().level
             for (item in dataList) {
@@ -185,16 +183,106 @@ class BatteryLogDetailActivity : AppCompatActivity() {
                                 item.voltage.toString() + "," +
                                 status1 + "\r\n"
                     bufferedWriter.write(line2)
+                }
+            }
+            
+            Log.d(TAG, "保存CSV文件成功: ${uri.path}")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(TAG, "保存CSV文件失败: ${e.message}")
+        } finally {
+            try {
+                bufferedWriter?.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    
+    private fun saveDataFileToSystem(fileName: String, dataList: List<BatteryInfo>): Boolean {
+        val datFile = File(
+            applicationContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+            fileName
+        )
+        var isSuccessful: Boolean
+        var datBufferedWriter: BufferedWriter? = null
+        try {
+            val datFileOutputStream = FileOutputStream(datFile)
+            datBufferedWriter = BufferedWriter(OutputStreamWriter(datFileOutputStream, "utf-8"))
+            val line =
+                "datetime" + "," + "time" + "," + "level" + "," + "temperature" + "," + "voltage" + "," + "status" + "\r\n"
+            datBufferedWriter.write(line)
+            
+            val status: String = when (dataList.first().status) {
+                BatteryManager.BATTERY_STATUS_UNKNOWN ->
+                    getString(R.string.battery_status_unknown)
+
+                BatteryManager.BATTERY_STATUS_CHARGING ->
+                    getString(R.string.battery_status_charging)
+
+                BatteryManager.BATTERY_STATUS_DISCHARGING ->
+                    getString(R.string.battery_status_discharging)
+
+                BatteryManager.BATTERY_STATUS_NOT_CHARGING ->
+                    getString(R.string.battery_status_not_charging)
+
+                BatteryManager.BATTERY_STATUS_FULL ->
+                    getString(R.string.battery_status_full)
+
+                else ->
+                    getString(R.string.battery_status_unknown)
+            }
+            
+            val line1 =
+                longToDate(dataList.first().title + dataList.first().time) + "," +
+                        longToTime(dataList.first().time) + "," +
+                        dataList.first().level.toString() + "," +
+                        ((dataList.first().temperature).toFloat() / 10).toString() + "," +
+                        dataList.first().voltage.toString() + "," + status + "\r\n"
+
+            datBufferedWriter.write(line1)
+
+            var level = dataList.first().level
+            for (item in dataList) {
+                if (item.level != level || level == dataList.last().level) {
+                    level = item.level
+                    val status1: String = when (item.status) {
+                        BatteryManager.BATTERY_STATUS_UNKNOWN ->
+                            getString(R.string.battery_status_unknown)
+
+                        BatteryManager.BATTERY_STATUS_CHARGING ->
+                            getString(R.string.battery_status_charging)
+
+                        BatteryManager.BATTERY_STATUS_DISCHARGING ->
+                            getString(R.string.battery_status_discharging)
+
+                        BatteryManager.BATTERY_STATUS_NOT_CHARGING ->
+                            getString(R.string.battery_status_not_charging)
+
+                        BatteryManager.BATTERY_STATUS_FULL ->
+                            getString(R.string.battery_status_full)
+
+                        else ->
+                            getString(R.string.battery_status_unknown)
+                    }
+                    val line2 =
+                        longToDate(item.title + item.time) + "," +
+                                longToTime(item.time) + "," +
+                                item.level.toString() + "," +
+                                ((item.temperature.toFloat()) / 10).toString() + "," +
+                                item.voltage.toString() + "," +
+                                status1 + "\r\n"
                     datBufferedWriter.write(line2)
                 }
             }
             isSuccessful = true
+            Log.d(TAG, "保存DAT文件成功: ${datFile.path}")
         } catch (e: Exception) {
             e.printStackTrace()
             isSuccessful = false
+            Log.e(TAG, "保存DAT文件失败: ${e.message}")
         } finally {
             try {
-                bufferedWriter?.close()
                 datBufferedWriter?.close()
             } catch (e: Exception) {
                 e.printStackTrace()
