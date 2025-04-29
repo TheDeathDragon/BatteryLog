@@ -22,14 +22,16 @@ Battery records information.
 
 - After completion of the boot log service can be started automatically.
 
-- You can export the recorded log, CSV file.
+- You can export the recorded log as CSV file via system file picker.
 - Drain battery fast.
 - When battery level is full, the log service will stop automatically.
 
 ## Export Logs
 
-1. click save log button in application
-2. export logs by adb
+1. Click the save log button in the application
+2. The system will open the file picker, allowing you to choose where to save the CSV file
+3. Additionally, the app automatically saves a backup in DAT format to the app's private directory
+4. You can also export all log files using adb command
 
 ```bash
 adb pull /storage/emulated/0/Android/data/la.shiro.batterylog/files/Documents
