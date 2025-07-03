@@ -8,24 +8,27 @@
 
     <TextView
         android:id="@+id/tv_time"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:hint="@string/time"
         android:textColor="?attr/colorOnPrimary" />
 
     <TextView
         android:id="@+id/tv_level"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:hint="@string/level"
         android:textColor="?attr/colorOnPrimary" />
 
     <TextView
         android:id="@+id/tv_temperature"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="center_horizontal"
         android:hint="@string/temperature"
         android:textColor="?attr/colorOnPrimary" />

@@ -50,7 +50,7 @@ class CameraFragment : Fragment(R.layout.fragment_camera) {
 
             // Preview
             val preview = Preview.Builder().build().also {
-                it.setSurfaceProvider(surfaceProvider)
+                it.surfaceProvider = surfaceProvider
             }
 
             // Select back camera as a default

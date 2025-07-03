@@ -29,6 +29,7 @@ import la.shiro.batterylog.database.BatteryInfo
 import la.shiro.batterylog.viewmodel.ChartViewModel
 import la.shiro.batterylog.viewmodel.ChartViewModelFactory
 import java.util.*
+import androidx.core.content.edit
 
 
 class BatteryLogChartActivity : AppCompatActivity(),
@@ -96,16 +97,18 @@ class BatteryLogChartActivity : AppCompatActivity(),
             .registerOnSharedPreferenceChangeListener(this)
         val checkBoxLevel = findViewById<View>(R.id.check_box_level) as CheckBox
         checkBoxLevel.setOnCheckedChangeListener { buttonView, isChecked ->
-            PreferenceManager.getDefaultSharedPreferences(applicationContext).edit()
-                .putBoolean("check_box_level", isChecked).apply()
+            PreferenceManager.getDefaultSharedPreferences(applicationContext).edit {
+                putBoolean("check_box_level", isChecked)
+            }
         }
         checkBoxLevel.isChecked = PreferenceManager.getDefaultSharedPreferences(applicationContext)
             .getBoolean("check_box_level", true)
         isShowLevel = checkBoxLevel.isChecked
         val checkBoxTemperature = findViewById<View>(R.id.check_box_temperature) as CheckBox
         checkBoxTemperature.setOnCheckedChangeListener { buttonView, isChecked ->
-            PreferenceManager.getDefaultSharedPreferences(applicationContext).edit()
-                .putBoolean("check_box_temperature", isChecked).apply()
+            PreferenceManager.getDefaultSharedPreferences(applicationContext).edit {
+                putBoolean("check_box_temperature", isChecked)
+            }
         }
         checkBoxTemperature.isChecked =
             PreferenceManager.getDefaultSharedPreferences(applicationContext)

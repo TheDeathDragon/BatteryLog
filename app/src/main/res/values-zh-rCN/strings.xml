@@ -58,16 +58,42 @@
     <string name="author_info">
 \nAuthor: RinShiro
 \n
-\nEmail: 249501281@qq.com
+\nEmail: me@shiro.la
 \n
-\nMade with ❤️ in 2023
+\nMade with ❤️ in 2025
     </string>
     <string name="open_source_license">开源协议</string>
     <string name="open_source_license_info">
-\n本项目使用了如下开源项目代码
+\n本项目使用了以下开源库:
 \n
-\nMPAndroidChart
-\nhttps://github.com/PhilJay/MPAndroidChart
+\nAndroidX 库 (Apache License 2.0)
+\n• androidx.core:core-ktx
+\n• androidx.activity:activity-ktx  
+\n• androidx.appcompat:appcompat
+\n• androidx.preference:preference-ktx
+\n• androidx.fragment:fragment-ktx
+\n• androidx.constraintlayout:constraintlayout
+\n• androidx.room (room-runtime, room-ktx, room-compiler)
+\n• androidx.lifecycle (viewmodel-ktx, livedata-ktx, common-java8)
+\n• androidx.camera (camera2, lifecycle, view)
+\n• androidx.navigation (fragment-ktx, ui-ktx, dynamic-features-fragment)
+\nhttps://source.android.com/license
+\n
+\nMaterial Design 组件 (Apache License 2.0)
+\n• Google Material Design 库
+\nhttps://github.com/material-components/material-components-android/blob/master/LICENSE
+\n
+\nGoogle Play 服务 (Google Play Services Terms)
+\n• Google Play 定位服务 API
+\nhttps://developers.google.com/terms/
+\n
+\nMPAndroidChart (Apache License 2.0)
+\n• PhilJay MPAndroidChart 图表库
+\nhttps://github.com/PhilJay/MPAndroidChart/blob/master/LICENSE
+\n
+\nKotlin 标准库 (Apache License 2.0)
+\n• JetBrains Kotlin 标准库
+\nhttps://github.com/JetBrains/kotlin/blob/master/license/LICENSE.txt
     </string>
     <string name="location">GPS</string>
     <string name="network">网络</string>
