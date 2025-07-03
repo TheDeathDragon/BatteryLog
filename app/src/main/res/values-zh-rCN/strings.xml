@@ -52,6 +52,12 @@
     <string name="battery_full_info">电池已经充满，请拔掉充电器后开始记录</string>
     <string name="time">时间</string>
     <string name="menu_about">关于</string>
+    <string name="menu_version">版本</string>
+    <string name="version_info">版本信息</string>
+    <string name="version_name">版本名称</string>
+    <string name="version_code">版本号</string>
+    <string name="build_time">构建时间</string>
+    <string name="app_name_label">应用名称</string>
     <string name="about_app">功能介绍</string>
     <string name="about_app_info">Battery Log 是一款记录电池电压电流温度等参数的软件，可以用于测试电池的充放电曲线和温度。\n同时，数据也可以导出保存成CSV格式。</string>
     <string name="author">作者</string>

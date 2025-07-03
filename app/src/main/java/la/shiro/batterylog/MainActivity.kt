@@ -38,6 +38,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -47,6 +48,7 @@ import la.shiro.batterylog.adapter.BatteryStatsAdapter
 import la.shiro.batterylog.config.BATTERY_OPTIMIZATION_REQUEST_CODE
 import la.shiro.batterylog.config.NOTIFICATION_PERMISSION_REQUEST_CODE
 import la.shiro.batterylog.service.BatteryLogService
+import androidx.core.net.toUri
 
 
 class MainActivity : AppCompatActivity() {
@@ -134,6 +136,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
 
+            R.id.main_menu_version_item -> {
+                showVersionDialog()
+                return true
+            }
+
             else -> {
                 return super.onOptionsItemSelected(item)
             }
@@ -189,7 +196,7 @@ class MainActivity : AppCompatActivity() {
     private fun requestBackgroundRunPermission() {
         val packageName = packageName
         val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
-        intent.data = Uri.parse("package:$packageName")
+        intent.data = "package:$packageName".toUri()
         startActivityForResult(intent, BATTERY_OPTIMIZATION_REQUEST_CODE)
     }
 
@@ -397,5 +404,23 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyItemChanged(6)
             adapter.notifyItemChanged(8)
         }
+    }
+
+    private fun showVersionDialog() {
+        val appName = BuildConfig.APP_NAME
+        val versionName = BuildConfig.VERSION_NAME
+        val versionCode = BuildConfig.VERSION_CODE
+        val buildTime = BuildConfig.BUILD_TIME
+        
+        val message = getString(R.string.app_name_label) + ": $appName\n" +
+                     getString(R.string.version_name) + ": $versionName\n" +
+                     getString(R.string.version_code) + ": $versionCode\n" +
+                     getString(R.string.build_time) + ": $buildTime"
+        
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.version_info))
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.confirm)) { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 }
