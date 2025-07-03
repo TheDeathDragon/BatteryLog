@@ -11,10 +11,27 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 5,
-      "versionName": "1.4",
-      "outputFile": "BatteryLog_v1.4.apk"
+      "versionCode": 250703,
+      "versionName": "25.07.03",
+      "outputFile": "BatteryLog.apk"
     }
   ],
-  "elementType": "File"
+  "elementType": "File",
+  "baselineProfiles": [
+    {
+      "minApi": 28,
+      "maxApi": 30,
+      "baselineProfiles": [
+        "baselineProfiles/1/BatteryLog.dm"
+      ]
+    },
+    {
+      "minApi": 31,
+      "maxApi": 2147483647,
+      "baselineProfiles": [
+        "baselineProfiles/0/BatteryLog.dm"
+      ]
+    }
+  ],
+  "minSdkVersionForDexing": 28
 }

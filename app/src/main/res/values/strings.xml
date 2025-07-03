@@ -52,6 +52,12 @@
     <string name="battery_full_info">The battery is full, please remove the charger and start recording</string>
     <string name="time">Time</string>
     <string name="menu_about">About</string>
+    <string name="menu_version">Version</string>
+    <string name="version_info">Version Information</string>
+    <string name="version_name">Version Name</string>
+    <string name="version_code">Version Code</string>
+    <string name="build_time">Build Time</string>
+    <string name="app_name_label">App Name</string>
     <string name="about_app">About APP</string>
     <string name="about_app_info">Battery Log is a software to record battery voltage, current, temperature and other parameters, which can be used to test battery charge/discharge curves and temperature. \nAlso, the data can be exported and saved in CSV format.</string>
     <string name="author">Author</string>

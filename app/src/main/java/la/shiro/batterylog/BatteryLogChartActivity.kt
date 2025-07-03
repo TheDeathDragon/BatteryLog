@@ -42,7 +42,7 @@ class BatteryLogChartActivity : AppCompatActivity(),
     private lateinit var rightAxis: YAxis
     private var isShowLevel: Boolean = true
     private var isShowTemperature: Boolean = false
-    private lateinit var batteryInfo: List<BatteryInfo>
+    private var batteryInfo: List<BatteryInfo> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -171,6 +171,9 @@ class BatteryLogChartActivity : AppCompatActivity(),
     }
 
     private fun upData() {
+        if (batteryInfo.isEmpty()) {
+            return
+        }
         initLineChart(lineChart)
         setLineChartData()
         lineChart.notifyDataSetChanged()
@@ -229,7 +232,9 @@ class BatteryLogChartActivity : AppCompatActivity(),
         xAxis.isGranularityEnabled = true
         xAxis.granularity = 1f
         //xAxis.axisMaximum = list.last().time.toFloat()
-        xAxis.axisMinimum = batteryInfo.first().time.toFloat()
+        if (batteryInfo.isNotEmpty()) {
+            xAxis.axisMinimum = batteryInfo.first().time.toFloat()
+        }
         xAxis.setLabelCount(20, false)
         val iAxisValueFormatter = MIAxisValueFormatter()
         xAxis.valueFormatter = iAxisValueFormatter
@@ -264,6 +269,9 @@ class BatteryLogChartActivity : AppCompatActivity(),
     }
 
     private fun setLineChartData() {
+        if (batteryInfo.isEmpty()) {
+            return
+        }
         //设置数据
         val entriesLevel: MutableList<Entry> = ArrayList()
         val entriesTemperature: MutableList<Entry> = ArrayList()
@@ -328,14 +336,18 @@ class BatteryLogChartActivity : AppCompatActivity(),
             "check_box_level" -> {
                 if (sharedPreferences != null) {
                     isShowLevel = sharedPreferences.getBoolean("check_box_level", true)
-                    upData()
+                    if (batteryInfo.isNotEmpty()) {
+                        upData()
+                    }
                 }
             }
 
             "check_box_temperature" -> {
                 if (sharedPreferences != null) {
                     isShowTemperature = sharedPreferences.getBoolean("check_box_temperature", false)
-                    upData()
+                    if (batteryInfo.isNotEmpty()) {
+                        upData()
+                    }
                 }
             }
         }

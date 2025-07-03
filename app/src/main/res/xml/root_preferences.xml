@@ -1,8 +1,10 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreference
         android:layout_width="match_parent"
         android:defaultValue="false"
+        app:iconSpaceReserved="false"
         android:key="service_run_on_boot"
         android:title="@string/service_run_on_boot" />
 
