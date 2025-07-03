@@ -9,7 +9,6 @@
     <LinearLayout
         android:id="@+id/log_detail_linear_layout"
         android:layout_width="0dp"
-
         android:layout_height="wrap_content"
         android:background="@color/material_dynamic_primary30"
         android:gravity="center_horizontal"
@@ -20,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -29,7 +28,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -38,7 +37,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -47,7 +46,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
@@ -56,7 +55,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_horizontal"
