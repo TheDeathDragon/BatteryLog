@@ -49,6 +49,10 @@
     <string name="delete">删除</string>
     <string name="delete_all">删除所有</string>
     <string name="save_data_as">导出数据</string>
+    <string name="rename">重命名</string>
+    <string name="rename_log">重命名日志</string>
+    <string name="enter_new_name">请输入新名称</string>
+    <string name="rename_success">日志重命名成功</string>
     <string name="battery_full_info">电池已经充满，请拔掉充电器后开始记录</string>
     <string name="time">时间</string>
     <string name="menu_about">关于</string>

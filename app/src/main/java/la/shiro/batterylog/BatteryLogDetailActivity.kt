@@ -12,17 +12,18 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import la.shiro.batterylog.adapter.BatteryLogDetailAdapter
 import la.shiro.batterylog.config.TAG
+import la.shiro.batterylog.config.TestNameManager
 import la.shiro.batterylog.database.BatteryInfo
 import la.shiro.batterylog.viewmodel.ChartViewModel
 import la.shiro.batterylog.viewmodel.ChartViewModelFactory
@@ -38,6 +39,8 @@ class BatteryLogDetailActivity : AppCompatActivity() {
     private lateinit var list: List<BatteryInfo>
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BatteryLogDetailAdapter
+    private lateinit var testNameManager: TestNameManager
+    private var currentTimestamp: Long = 0
     private val CREATE_CSV_FILE_REQUEST_CODE = 1001
     private val CREATE_DAT_FILE_REQUEST_CODE = 1002
     
@@ -61,9 +64,16 @@ class BatteryLogDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title = longToDate(intent.getLongExtra("testTitle", 0))
-            .replace(" ", "-")
-            .replace(":", "-")
+        
+        testNameManager = TestNameManager(this)
+        currentTimestamp = intent.getLongExtra("testTitle", 0)
+        val fullTitle = testNameManager.getTestName(currentTimestamp)
+        title = if (fullTitle.length > 20) {
+            fullTitle.substring(0, 17) + "..."
+        } else {
+            fullTitle
+        }
+        
         recyclerView = findViewById<View>(R.id.log_detail_recycler_view) as RecyclerView
 
         val layoutManager = LinearLayoutManager(this)
@@ -98,8 +108,13 @@ class BatteryLogDetailActivity : AppCompatActivity() {
                 finish()
             }
 
+            R.id.rename -> {
+                showRenameDialog()
+            }
+
             R.id.save_as -> {
-                createCSVFile("$title.csv")
+                val fileName = "${testNameManager.getTestName(currentTimestamp).replace(" ", "-").replace(":", "-")}.csv"
+                createCSVFile(fileName)
             }
         }
         return true
@@ -302,5 +317,30 @@ class BatteryLogDetailActivity : AppCompatActivity() {
         val sd = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
         sd.timeZone = TimeZone.GMT_ZONE
         return sd.format(date)
+    }
+
+    private fun showRenameDialog() {
+        val editText = EditText(this)
+        editText.setText(testNameManager.getTestName(currentTimestamp))
+        editText.selectAll()
+        
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.rename_log))
+            .setMessage(getString(R.string.enter_new_name))
+            .setView(editText)
+            .setPositiveButton(getString(R.string.confirm)) { _, _ ->
+                val newName = editText.text.toString().trim()
+                if (newName.isNotEmpty()) {
+                    testNameManager.saveTestName(currentTimestamp, newName)
+                    title = if (newName.length > 20) {
+                        newName.substring(0, 17) + "..."
+                    } else {
+                        newName
+                    }
+                    Snackbar.make(recyclerView, getString(R.string.rename_success), Snackbar.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .show()
     }
 }

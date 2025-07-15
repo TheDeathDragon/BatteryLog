@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/rename"
+        android:icon="@drawable/ic_edit"
+        android:orderInCategory="1"
+        android:title="@string/rename"
+        android:showAsAction="always" />
     <item
         android:id="@+id/save_as"
         android:icon="@drawable/ic_baseline_save"
-        android:orderInCategory="100"
+        android:orderInCategory="2"
         android:title="@string/save_data_as"
-        app:showAsAction="always|withText" />
-</menu>
+        android:showAsAction="never" />
+</menu> 

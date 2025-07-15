@@ -49,6 +49,10 @@
     <string name="delete">Delete</string>
     <string name="delete_all">Delete All</string>
     <string name="save_data_as">Save data as</string>
+    <string name="rename">Rename</string>
+    <string name="rename_log">Rename Log</string>
+    <string name="enter_new_name">Enter new name</string>
+    <string name="rename_success">Log renamed successfully</string>
     <string name="battery_full_info">The battery is full, please remove the charger and start recording</string>
     <string name="time">Time</string>
     <string name="menu_about">About</string>

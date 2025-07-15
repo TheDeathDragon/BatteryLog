@@ -1,6 +1,7 @@
 package la.shiro.batterylog.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import la.shiro.batterylog.R
+import la.shiro.batterylog.config.TestNameManager
 import java.util.*
 
-class BatteryLogAdapter(private var list: List<Long>) :
+class BatteryLogAdapter(private var list: List<Long>, private val context: Context) :
     RecyclerView.Adapter<BatteryLogAdapter.ViewHolder>() {
     private lateinit var itemOnClickListener: ItemOnClickListener
+    private val testNameManager = TestNameManager(context)
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textView: TextView =
@@ -37,7 +40,7 @@ class BatteryLogAdapter(private var list: List<Long>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = longToDate(list[position])
+        holder.textView.text = testNameManager.getDisplayTestName(list[position])
         holder.chartButton.setOnClickListener { itemOnClickListener.onClickChartButton(list[position]) }
         holder.listButton.setOnClickListener { itemOnClickListener.onClickListButton(list[position]) }
         holder.deleteButton.setOnClickListener { itemOnClickListener.onClickDeleteButton(list[position]) }
