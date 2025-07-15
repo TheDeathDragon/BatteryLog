@@ -1,6 +1,7 @@
 package la.shiro.batterylog
 
 import android.app.Application
+import com.google.android.material.color.DynamicColors
 import la.shiro.batterylog.database.BatteryInfoDatabase
 import la.shiro.batterylog.database.BatteryInfoRepository
 import kotlinx.coroutines.CoroutineScope
@@ -15,4 +16,8 @@ class BatteryLogApplication : Application() {
     val database by lazy { BatteryInfoDatabase.getDatabase(this, applicationScope) }
     val repository by lazy { BatteryInfoRepository(database.batteryInfoDao()) }
 
+    override fun onCreate() {
+        super.onCreate()
+        DynamicColors.applyToActivitiesIfAvailable(this)
+    }
 }

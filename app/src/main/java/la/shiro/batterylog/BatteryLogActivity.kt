@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import la.shiro.batterylog.adapter.BatteryLogAdapter
+import la.shiro.batterylog.config.TestNameManager
 import la.shiro.batterylog.viewmodel.LogViewModel
 import la.shiro.batterylog.viewmodel.LogViewModelFactory
 import java.io.File
+import androidx.core.content.edit
 
 class BatteryLogActivity : AppCompatActivity() {
     private val logViewModel: LogViewModel by viewModels {
@@ -25,15 +27,19 @@ class BatteryLogActivity : AppCompatActivity() {
     private lateinit var list: List<Long>
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BatteryLogAdapter
+    private lateinit var testNameManager: TestNameManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        
+        testNameManager = TestNameManager(this)
+        
         recyclerView = findViewById<View>(R.id.log_list_recyclerview) as RecyclerView
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         list = listOf()
-        adapter = BatteryLogAdapter(list)
+        adapter = BatteryLogAdapter(list, this)
         adapter.setClickListener(object : BatteryLogAdapter.ItemOnClickListener {
             override fun onClickChartButton(timeStamp: Long) {
                 startLineChartActivity(timeStamp)
@@ -64,6 +70,13 @@ class BatteryLogActivity : AppCompatActivity() {
             testTitle.distinct().let { adapter.setData(it) }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        logViewModel.allTestTitle.value?.let { testTitles ->
+            testTitles.distinct().let { adapter.setData(it) }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -101,12 +114,17 @@ class BatteryLogActivity : AppCompatActivity() {
     private fun delete(timeStamp: Long) {
         (application as BatteryLogApplication).applicationScope.launch(Dispatchers.IO) {
             logViewModel.delete(timeStamp)
+            testNameManager.removeTestName(timeStamp)
         }
     }
 
     private fun deleteAll() {
         (application as BatteryLogApplication).applicationScope.launch(Dispatchers.IO) {
             logViewModel.deleteAll()
+            // 清理所有自定义测试名称
+            val sharedPreferences = getSharedPreferences("test_names", MODE_PRIVATE)
+            sharedPreferences.edit { clear() }
+            
             val fileList =
                 File(applicationContext.getExternalFilesDir(null), "Documents").listFiles()
             if (fileList != null) {
