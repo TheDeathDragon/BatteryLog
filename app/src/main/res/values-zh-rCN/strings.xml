@@ -36,6 +36,8 @@
     <string name="menu_settings">设置</string>
     <string name="activity_settings">BatteryLog 设置</string>
     <string name="service_run_on_boot">开机自动启动服务</string>
+    <string name="enable_wake_lock">保持唤醒</string>
+    <string name="enable_wake_lock_summary">关闭后，锁屏状态下记录间隔可能会变长</string>
     <string name="current">电流</string>
     <string name="capacity">剩余电量</string>
     <string name="alert">警告</string>

@@ -8,4 +8,12 @@
         android:key="service_run_on_boot"
         android:title="@string/service_run_on_boot" />
 
+    <SwitchPreference
+        android:layout_width="match_parent"
+        android:defaultValue="false"
+        app:iconSpaceReserved="false"
+        android:key="enable_wake_lock"
+        android:title="@string/enable_wake_lock"
+        android:summary="@string/enable_wake_lock_summary" />
+
 </PreferenceScreen>
