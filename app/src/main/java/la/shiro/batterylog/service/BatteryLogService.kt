@@ -20,6 +20,7 @@ import android.os.PowerManager.WakeLock
 import android.os.SystemClock
 import android.util.Log
 import android.widget.RemoteViews
+import androidx.preference.PreferenceManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,8 +40,9 @@ class BatteryLogService : Service() {
     private var testTitle: Long = 0
     private var startTime: Long = 0
     private lateinit var batteryInfoRepository: BatteryInfoRepository
-    private lateinit var wakeLock: WakeLock
+    private var wakeLock: WakeLock? = null
     private lateinit var applicationScope: CoroutineScope
+    private var isWakeLockEnabled: Boolean = true
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -50,13 +52,17 @@ class BatteryLogService : Service() {
     @SuppressLint("WakelockTimeout")
     override fun onCreate() {
         super.onCreate()
-        val pm = this.getSystemService(POWER_SERVICE) as PowerManager
-        wakeLock = pm.newWakeLock(
-            PowerManager.ON_AFTER_RELEASE
-                    or PowerManager.PARTIAL_WAKE_LOCK, WAKE_LOG_TAG
-        )
-        wakeLock.acquire()
-        Log.d(TAG, "BatteryLogService --> onCreate")
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        isWakeLockEnabled = sharedPreferences.getBoolean("enable_wake_lock", false)
+        if (isWakeLockEnabled) {
+            val pm = this.getSystemService(POWER_SERVICE) as PowerManager
+            wakeLock = pm.newWakeLock(
+                PowerManager.ON_AFTER_RELEASE
+                        or PowerManager.PARTIAL_WAKE_LOCK, WAKE_LOG_TAG
+            )
+            wakeLock?.acquire()
+        }
+        Log.d(TAG, "BatteryLogService --> onCreate, wakeLock enabled: $isWakeLockEnabled")
         setForeground()
         batteryInfoRepository = (application as BatteryLogApplication).repository
         applicationScope = (application as BatteryLogApplication).applicationScope
@@ -150,7 +156,9 @@ class BatteryLogService : Service() {
 
     override fun onDestroy() {
         unregisterReceiver(mBroadcastReceiver)
-        wakeLock.release()
+        if (isWakeLockEnabled && wakeLock?.isHeld == true) {
+            wakeLock?.release()
+        }
         super.onDestroy()
     }
 }

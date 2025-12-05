@@ -36,6 +36,8 @@
     <string name="menu_settings">Setting</string>
     <string name="activity_settings">SettingsActivity</string>
     <string name="service_run_on_boot">Start service on boot</string>
+    <string name="enable_wake_lock">Keep awake</string>
+    <string name="enable_wake_lock_summary">When disabled, recording intervals may become longer while the screen is off</string>
     <string name="current">Current</string>
     <string name="capacity">Remaining</string>
     <string name="alert">Alert</string>

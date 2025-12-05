@@ -6,7 +6,7 @@ import android.icu.text.SimpleDateFormat
 import java.util.*
 import androidx.core.content.edit
 
-const val TAG = "Battery LOG"
+const val TAG = "BatteryLog"
 
 /**
  * 管理自定义测试名称
