@@ -30,6 +30,7 @@
     <string name="battery_plugged_ac">Plug (AC)</string>
     <string name="battery_plugged_usb">Plug (USB)</string>
     <string name="battery_plugged_wireless">Wireless</string>
+    <string name="battery_plugged_dock">Dock</string>
     <string name="have_battery">Have Battery</string>
     <string name="no_battery">No battery</string>
     <string name="battery_plugged_none">Unplugged</string>

@@ -27,6 +27,7 @@
     <string name="battery_plugged_ac">已插入 (AC)</string>
     <string name="battery_plugged_usb">已插入 (USB)</string>
     <string name="battery_plugged_wireless">无线充电</string>
+    <string name="battery_plugged_dock">底座充电</string>
     <string name="battery_plugged_none">未插入充电器</string>
     <string name="have_battery">有电池</string>
     <string name="no_battery">没有电池</string>

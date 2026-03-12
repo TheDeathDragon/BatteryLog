@@ -18,6 +18,7 @@ import android.os.BatteryManager.BATTERY_HEALTH_UNKNOWN
 import android.os.BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE
 import android.os.BatteryManager.BATTERY_PLUGGED_AC
 import android.os.BatteryManager.BATTERY_PLUGGED_USB
+import android.os.BatteryManager.BATTERY_PLUGGED_DOCK
 import android.os.BatteryManager.BATTERY_PLUGGED_WIRELESS
 import android.os.BatteryManager.BATTERY_PROPERTY_CHARGE_COUNTER
 import android.os.BatteryManager.BATTERY_PROPERTY_CURRENT_NOW
@@ -328,6 +329,9 @@ class MainActivity : AppCompatActivity() {
 
                                 BATTERY_PLUGGED_WIRELESS -> mutableMap[v] =
                                     context.getString(R.string.battery_plugged_wireless)
+
+                                BATTERY_PLUGGED_DOCK -> mutableMap[v] =
+                                    context.getString(R.string.battery_plugged_dock)
 
                                 0 -> mutableMap[v] =
                                     context.getString(R.string.battery_plugged_none)
